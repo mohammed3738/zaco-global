@@ -7,6 +7,8 @@ from .serializers import *
 from django.shortcuts import get_object_or_404
 from django.core.mail import send_mail
 from rest_framework import status
+from collections import defaultdict
+
 # Create your views here.
 
 @api_view(['GET'])
@@ -31,18 +33,22 @@ def home(request):
 
 @api_view(['GET'])
 def view_eosl(request):
-    
-  brand = Brand.objects.all()
-  eosl=Eosl.objects.all()
-    # filter ends here
-    
-  branch_serializer = BrandSerializer(brand,many=True)
-  eosl_serializer = EoslSerializer(eosl,many=True)
+    brands = Brand.objects.all()
+    eosls = Eosl.objects.all()
 
+    # Creating a dictionary to organize Eosl instances by brand name
+    brand_eosls_dict = defaultdict(list)
 
-  data = {
-        "brand": branch_serializer.data,
-        "eosl": eosl_serializer.data,
+    for eosl in eosls:
+        brand_eosls_dict[eosl.brand.brand_name].append(EoslSerializer(eosl).data)
 
-    }
-  return Response(data)
+    # Creating a list to hold each brand's data
+    brand_data_list = []
+    for brand in brands:
+        brand_data = {
+            "brand": BrandSerializer(brand).data,
+            "eosls": brand_eosls_dict[brand.brand_name],
+        }
+        brand_data_list.append(brand_data)
+
+    return Response(brand_data_list)
