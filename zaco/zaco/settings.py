@@ -84,17 +84,17 @@ WSGI_APPLICATION = 'zaco.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
 # postgres://zaco_db_user:cSDkNYUw6pbzlG8rNWrErvlsrjo4o9my@dpg-cmnpcr0cmk4c738mmqkg-a.oregon-postgres.render.com/zaco_db
 
-DATABASES={
-    'default':dj_database_url.parse(os.environ.get("DATABASE_URL"))
-}
+# DATABASES={
+#     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
