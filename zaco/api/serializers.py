@@ -9,7 +9,9 @@ class BrandSerializer(ModelSerializer):
         model=Brand
         fields=['id','brand_name']
 
-class EoslSerializer(ModelSerializer):
+class EoslSerializer(serializers.ModelSerializer):
+    brand_name = serializers.CharField(source='brand.brand_name', read_only=True)
+
     class Meta:
-        model=Eosl
-        fields=['id','brand','model','eosl_date','category']
+        model = Eosl
+        fields = ['id', 'brand_name', 'model', 'eosl_date', 'category']
