@@ -12,4 +12,4 @@ class BrandSerializer(ModelSerializer):
 class EoslSerializer(ModelSerializer):
     class Meta:
         model=Eosl
-        fields=['id','model','eosl_date','category']
+        fields=['id','brand','model','eosl_date','category']
