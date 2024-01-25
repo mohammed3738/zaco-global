@@ -60,9 +60,12 @@ def detail_view_eosl(request,name):
     # brands = Brand.objects.all()
 
     eosls = Eosl.objects.filter(brand__brand_name=name).values('brand','model','eosl_date','category')
+    brands = Brand.objects.all()
     eosl_serializer=EoslSerializer(eosls,many=True)
+    brand_serializer=BrandSerializer(brands,many=True)
     data={
-        'eosls':eosl_serializer.data
+        'eosls':eosl_serializer.data,
+        'brands':brand_serializer.data
     }
     print(data)
 
