@@ -52,3 +52,22 @@ def view_eosl(request):
         brand_data_list.append(brand_data)
 
     return Response(brand_data_list)
+
+
+
+@api_view(['GET'])
+def detail_view_eosl(request):
+    # brands = Brand.objects.all()
+
+    eosls = Eosl.objects.filter(brand__brand_name="HP").values('brand','model','eosl_date','category')
+    eosl_serializer=EoslSerializer(eosls,many=True)
+    data={
+        'eosls':eosl_serializer.data
+    }
+    print(data)
+
+  
+
+    return Response(data)
+
+
